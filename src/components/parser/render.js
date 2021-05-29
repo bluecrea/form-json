@@ -49,7 +49,7 @@ function emitEvents(confClone) {
 function buildDataObject(confClone, dataObject) {
   Object.keys(confClone).forEach(key => {
     const val = confClone[key]
-    if (key === '__vModel__') {
+    if (key === 'formKey') {
       vModel.call(this, dataObject, confClone.__config__.defaultValue)
     } else if (dataObject[key] !== undefined) {
       if (dataObject[key] === null

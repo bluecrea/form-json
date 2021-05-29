@@ -1,0 +1,190 @@
+[
+  {
+    "type": "text",
+    "formKey": "text_1",
+    "label": "单行输入框",
+    "placeholder": "请输入",
+    "maxlength": 1000,
+    "required": false,
+    "print": true
+  },
+  {
+    "type": "textarea",
+    "formKey": "textarea_2",
+    "label": "多行输入框",
+    "placeholder": "请输入",
+    "maxlength": 1000,
+    "required": false,
+    "print": true
+  },
+  {
+    "type": "number",
+    "formKey": "number_5",
+    "label": "数字输入框",
+    "placeholder": "请输入数字",
+    "unit": "",
+    "isCondition": true,
+    "required": false,
+    "print": true
+  },
+  {
+    "type": "radio",
+    "formKey": "radio_6",
+    "label": "单选框",
+    "placeholder": "请选择",
+    "options": [
+      "选项1",
+      "选项2",
+      "选项3"
+    ],
+    "associated": {},
+    "isCondition": true,
+    "required": false,
+    "print": true
+  },
+  {
+    "type": "checkbox",
+    "formKey": "checkbox_7",
+    "label": "多选框",
+    "placeholder": "请选择",
+    "options": [
+      "选项1",
+      "选项2",
+      "选项3"
+    ],
+    "associated": {},
+    "isCondition": true,
+    "required": false,
+    "print": true
+  },
+  {
+    "type": "date",
+    "formKey": "date_3",
+    "label": "日期",
+    "dateType": "YYYY-MM-DD",
+    "required": false,
+    "print": true
+  },
+  {
+    "type": "daterange",
+    "formKey": "daterange_4",
+    "label1": "开始时间",
+    "label2": "结束时间",
+    "dateType": "YYYY-MM-DD A",
+    "placeholder": "请选择",
+    "required": false,
+    "autoComputed": false,
+    "duration": "时长",
+    "print": true
+  },
+  {
+    "type": "image",
+    "formKey": "image_8",
+    "label": "图片",
+    "required": false,
+    "print": true,
+    "watermark": false
+  },
+  {
+    "type": "table",
+    "formKey": "table_9",
+    "label": "表格",
+    "action": "添加",
+    "fillInWay": "table",
+    "printWay": "horizontal",
+    "children": [
+      {
+        "type": "number",
+        "formKey": "number_12",
+        "label": "数字输入框",
+        "placeholder": "请输入数字",
+        "unit": "",
+        "isCondition": true,
+        "required": false,
+        "print": true
+      }
+    ]
+  },
+  {
+    "type": "amount",
+    "formKey": "amount_11",
+    "label": "金额（元）",
+    "placeholder": "请输入金额",
+    "required": false,
+    "capital": true,
+    "isCondition": true,
+    "print": true
+  },
+  {
+    "type": "instruction",
+    "formKey": "instruction_10",
+    "instruction": "",
+    "url": "",
+    "required": false,
+    "print": true
+  },
+  {
+    "type": "idCard",
+    "formKey": "idCard_13",
+    "label": "身份证",
+    "placeholder": "请输入",
+    "required": false,
+    "print": true
+  },
+  {
+    "type": "contacts",
+    "formKey": "contacts_15",
+    "label": "联系人",
+    "required": false,
+    "isMany": 0,
+    "print": true
+  },
+  {
+    "type": "phone",
+    "formKey": "phone_14",
+    "label": "电话",
+    "placeholder": "请输入",
+    "required": false,
+    "print": true
+  },
+  {
+    "type": "depar",
+    "formKey": "depar_16",
+    "label": "部门",
+    "required": false,
+    "isMany": 0,
+    "isCondition": true,
+    "print": true
+  },
+  {
+    "type": "formula",
+    "formKey": "formula_17",
+    "label": "计算公式",
+    "placeholder": "自动计算数值",
+    "formula": [],
+    "required": false,
+    "capital": true,
+    "isCondition": true,
+    "print": true
+  },
+  {
+    "type": "invoice",
+    "formKey": "invoice_18",
+    "label": "电子发票",
+    "required": false,
+    "print": true,
+    "descText": [
+      "员工使用时，钉钉与支付宝关联后，即可在钉钉内选取支付宝发票管家中的电子发票。",
+      "质发票建议使用图片控件，由员工拍照上传，用于报销。"
+    ]
+  },
+  {
+    "type": "score",
+    "formKey": "score_19",
+    "label": "评分",
+    "required": false,
+    "score": 5,
+    "isCondition": true,
+    "print": true
+  }
+]

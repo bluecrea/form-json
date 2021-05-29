@@ -16,18 +16,17 @@ const ruleTrigger = {
 
 const layouts = {
   colFormItem(h, scheme) {
+    console.log(scheme)
     const config = scheme.__config__
     const listeners = buildListeners.call(this, scheme)
 
     let labelWidth = config.labelWidth ? `${config.labelWidth}px` : null
-    if (config.showLabel === false) labelWidth = '0'
+    //if (config.showLabel === false) labelWidth = '0'
     return (
-        <el-col span={config.span}>
-          <el-form-item label-width={labelWidth} prop={scheme.__vModel__}
-                        label={config.showLabel ? config.label : ''}>
-            <render conf={scheme} on={listeners} />
-          </el-form-item>
-        </el-col>
+        <el-form-item label-width={labelWidth} prop={scheme.formKey}
+                      label={ config.label || ''}>
+          <render conf={scheme} on={listeners} />
+        </el-form-item>
     )
   },
   rowFormItem(h, scheme) {
@@ -98,7 +97,7 @@ function renderChildren(h, scheme) {
 
 function setValue(event, config, scheme) {
   this.$set(config, 'defaultValue', event)
-  this.$set(this[this.formConf.formModel], scheme.__vModel__, event)
+  this.$set(this[this.formConf.formModel], scheme.formKey, event)
 }
 
 function buildListeners(scheme) {
@@ -140,7 +139,7 @@ export default {
     initFormData(componentList, formData) {
       componentList.forEach(cur => {
         const config = cur.__config__
-        if (cur.__vModel__) formData[cur.__vModel__] = config.defaultValue
+        if (cur.formKey) formData[cur.formKey] = config.defaultValue
         if (config.children) this.initFormData(config.children, formData)
       })
     },
@@ -157,7 +156,7 @@ export default {
             required.message === undefined && (required.message = `${config.label}不能为空`)
             config.regList.push(required)
           }
-          rules[cur.__vModel__] = config.regList.map(item => {
+          rules[cur.formKey] = config.regList.map(item => {
             item.pattern && (item.pattern = eval(item.pattern))
             item.trigger = ruleTrigger && ruleTrigger[config.tag]
             return item
