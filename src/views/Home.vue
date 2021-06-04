@@ -67,6 +67,15 @@ export default {
         "required": false,
         "print": true
       },{
+        "type": "amount",
+        "formKey": "amount_11",
+        "label": "金额（元）",
+        "placeholder": "请输入金额",
+        "required": false,
+        "capital": true,
+        "isCondition": true,
+        "print": true
+      },{
         "type": "date",
         "formKey": "date_3",
         "label": "日期",
@@ -93,7 +102,18 @@ export default {
   },
   mounted() {
     const fields = []
-    this.backData.forEach(item => {
+    let itemObj
+    const typeToTagIndex = this.backData.findIndex(item => {
+      if (item.type==='amount'&& item.capital) {
+        itemObj = item
+      }
+      return item.type==='amount'&& item.capital
+    })
+    if (typeToTagIndex !== -1) {
+      this.backData.splice(typeToTagIndex,1,itemObj,{tag: 2, err: 3})
+    }
+    console.log(this.backData)
+    /*this.backData.forEach((item,index) => {
       let Obj = {}
       Obj.maxlength = item.maxlength
       switch (item.type) {
@@ -144,8 +164,7 @@ export default {
       fields.push(Obj)
     })
     this.formConf.fields = fields
-    console.log(fields)
-    console.log(this.formConf)
+    console.log(fields)*/
     // 表单数据回填，模拟异步请求场景
     setTimeout(() => {
       // 请求回来的表单数据
@@ -166,6 +185,9 @@ export default {
           item.__config__.defaultValue = val
         }
       })
+    },
+    findAddForm(formList, type) {
+      return formList.findIndex(item => item.type === type)
     },
     change() {
       const t = this.formConf

@@ -1,4 +1,4 @@
-import { deepClone } from './deepClone'
+import {deepClone} from './deepClone'
 
 const componentChild = {}
 /**
@@ -10,8 +10,7 @@ const slotsFiles = require.context('./slots', false, /\.js$/)
 const keys = slotsFiles.keys() || []
 keys.forEach(key => {
   const tag = key.replace(/^\.\/(.*)\.\w+$/, '$1')
-  const value = slotsFiles(key).default
-  componentChild[tag] = value
+  componentChild[tag] = slotsFiles(key).default
 })
 
 function vModel(dataObject, defaultValue) {
@@ -116,7 +115,6 @@ export default {
 
     // 将json表单配置转化为vue render可以识别的 “数据对象（dataObject）”
     buildDataObject.call(this, confClone, dataObject)
-
     return h(this.conf.__config__.tag, dataObject, children)
   }
 }
