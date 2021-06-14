@@ -1,17 +1,12 @@
 <template>
   <div class="test-form">
     <parser v-if="formConf.fields.length>0" :form-conf="formConf" @submit="sumbitForm1" />
-    <el-button @click="change">
-      change
-    </el-button>
   </div>
 </template>
 
 <script>
 import Parser from '@/components/parser'
-
-// 若parser是通过安装npm方式集成到项目中的，使用此行引入
-// import Parser from 'form-gen-parser'
+import { jsonToForm } from '@/components/parser/typeToTag'
 
 export default {
   components: {
@@ -91,7 +86,7 @@ export default {
         "labelPosition": "top",
         "formRules": "rules",
         "disabled": false,
-        "formBtns": false,
+        "formBtns": true,
         "unFocusedComponentBorder": false
       },
     }
@@ -101,70 +96,7 @@ export default {
   created() {
   },
   mounted() {
-    const fields = []
-    let itemObj
-    const typeToTagIndex = this.backData.findIndex(item => {
-      if (item.type==='amount'&& item.capital) {
-        itemObj = item
-      }
-      return item.type==='amount'&& item.capital
-    })
-    if (typeToTagIndex !== -1) {
-      this.backData.splice(typeToTagIndex,1,itemObj,{tag: 2, err: 3})
-    }
-    console.log(this.backData)
-    /*this.backData.forEach((item,index) => {
-      let Obj = {}
-      Obj.maxlength = item.maxlength
-      switch (item.type) {
-        case 'text':
-        case 'number':
-        case 'amount':
-        case 'idCard':
-        case 'phone':
-          item.tag = 'el-input'
-          break
-        case 'textarea':
-          item.tag = 'el-textarea'
-          break
-        case 'radio':
-          item.tag = 'el-select'
-          Obj.multiple = false
-          break
-        case 'checkbox':
-          item.tag = 'el-select'
-          Obj.multiple = true
-          break
-        case 'date':
-          item.tag = 'el-date-picker'
-          Obj.format = 'yyyy-MM-dd'
-          Obj['value-format'] = 'yyyy-MM-dd'
-          break
-        case 'score':
-          item.tag = 'el-rate'
-          Obj.max = item.score
-          break
-      }
-      if (item.type === 'radio'|| item.type === 'checkbox') {
-        Obj['__slot__'] = {
-          options: item.options
-        }
-      }
-      Obj.__config__ = {
-        label: item.label,
-        tag: item.tag,
-        required: item.required,
-        layout: 'colFormItem',
-        regList: []
-      }
-      Obj.formKey = item.formKey
-      Obj.placeholder = item.placeholder
-      Obj.maxlength = item.maxlength
-      Obj['show-word-limit'] = true
-      fields.push(Obj)
-    })
-    this.formConf.fields = fields
-    console.log(fields)*/
+    this.formConf.fields = jsonToForm(this.backData)
     // 表单数据回填，模拟异步请求场景
     setTimeout(() => {
       // 请求回来的表单数据

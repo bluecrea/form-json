@@ -16,7 +16,7 @@ const ruleTrigger = {
 
 const layouts = {
   colFormItem(h, scheme) {
-    const config = scheme.__config__
+    const config = scheme.config
     const listeners = buildListeners.call(this, scheme)
 
     let labelWidth = config.labelWidth ? `${config.labelWidth}px` : null
@@ -28,6 +28,19 @@ const layouts = {
         </el-form-item>
     )
   },
+  colDivItem(h, scheme) {
+    const { formConfCopy } = this
+    const config = scheme.config
+    const listeners = buildListeners.call(this, scheme)
+    let labelWidth = config.labelWidth ? `${config.labelWidth}px` : null
+    return (
+      <el-form-item label-width={labelWidth} prop={scheme.formKey}
+                    label={ config.label || ''}>
+        <el-input value={this.value} on-input={ value => scheme.formModel[scheme.formKey] = value } maxlength="10" show-word-limit/>
+        <p>金额：</p>
+      </el-form-item>
+    )
+  },
   rowFormItem(h, scheme) {
     let child = renderChildren.apply(this, arguments)
     if (scheme.type === 'flex') {
@@ -36,7 +49,7 @@ const layouts = {
       </el-row>
     }
     return (
-        <el-col span={scheme.span}>
+        <el-col span='12'>
           <el-row gutter={scheme.gutter}>
             {child}
           </el-row>
@@ -78,7 +91,7 @@ function formBtns(h) {
 
 function renderFormItem(h, elementList) {
   return elementList.map(scheme => {
-    const config = scheme.__config__
+    const config = scheme.config
     const layout = layouts[config.layout]
 
     if (layout) {
@@ -89,7 +102,7 @@ function renderFormItem(h, elementList) {
 }
 
 function renderChildren(h, scheme) {
-  const config = scheme.__config__
+  const config = scheme.config
   if (!Array.isArray(config.children)) return null
   return renderFormItem.call(this, h, config.children)
 }
@@ -100,7 +113,7 @@ function setValue(event, config, scheme) {
 }
 
 function buildListeners(scheme) {
-  const config = scheme.__config__
+  const config = scheme.config
   const methods = this.formConf.__methods__ || {}
   const listeners = {}
 
@@ -137,14 +150,14 @@ export default {
   methods: {
     initFormData(componentList, formData) {
       componentList.forEach(cur => {
-        const config = cur.__config__
+        const config = cur.config
         if (cur.formKey) formData[cur.formKey] = config.defaultValue
         if (config.children) this.initFormData(config.children, formData)
       })
     },
     buildRules(componentList, rules) {
       componentList.forEach(cur => {
-        const config = cur.__config__
+        const config = cur.config
         if (Array.isArray(config.regList)) {
           if (config.required) {
             const required = { required: config.required, message: cur.placeholder }

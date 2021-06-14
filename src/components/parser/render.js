@@ -15,18 +15,17 @@ keys.forEach(key => {
 
 function vModel(dataObject, defaultValue) {
   dataObject.props.value = defaultValue
-
   dataObject.on.input = val => {
     this.$emit('input', val)
   }
 }
 
 function mountSlotFiles(h, confClone, children) {
-  const childObjs = componentChild[confClone.__config__.tag]
+  const childObjs = componentChild[confClone.config.tag]
   if (childObjs) {
     Object.keys(childObjs).forEach(key => {
       const childFunc = childObjs[key]
-      if (confClone.__slot__ && confClone.__slot__[key]) {
+      if (confClone.slot && confClone.slot[key]) {
         children.push(childFunc(h, confClone, key))
       }
     })
@@ -49,7 +48,7 @@ function buildDataObject(confClone, dataObject) {
   Object.keys(confClone).forEach(key => {
     const val = confClone[key]
     if (key === 'formKey') {
-      vModel.call(this, dataObject, confClone.__config__.defaultValue)
+      vModel.call(this, dataObject, confClone.config.defaultValue)
     } else if (dataObject[key] !== undefined) {
       if (dataObject[key] === null
         || dataObject[key] instanceof RegExp
@@ -70,8 +69,8 @@ function buildDataObject(confClone, dataObject) {
 }
 
 function clearAttrs(dataObject) {
-  delete dataObject.attrs.__config__
-  delete dataObject.attrs.__slot__
+  delete dataObject.attrs.config
+  delete dataObject.attrs.slot
   delete dataObject.attrs.__methods__
 }
 
@@ -115,6 +114,6 @@ export default {
 
     // 将json表单配置转化为vue render可以识别的 “数据对象（dataObject）”
     buildDataObject.call(this, confClone, dataObject)
-    return h(this.conf.__config__.tag, dataObject, children)
+    return h(this.conf.config.tag, dataObject, children)
   }
 }
