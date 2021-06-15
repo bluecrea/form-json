@@ -37,12 +37,23 @@ export const jsonToForm = (json) =>  {
         obj.config.tag = 'el-rate'
         obj.maxlength = item.score
         break
-    }
-    if (item.capital) {
-      obj.config.layout = 'colDivItem'
+      case 'date':
+        obj.config.tag = 'el-date-picker'
+        obj.format = "yyyy-MM-dd"
+        obj['value-format'] = "yyyy-MM-dd"
+        break
     }
     fields.push(obj)
   })
-  console.log(fields)
+  const capitalIndex = json.findIndex(item => item.capital)
+  if (capitalIndex !== -1) {
+    const obj = {
+      config: {
+        tag: 'p',
+        layout: 'colDivItem',
+      }
+    }
+    fields.splice(capitalIndex+1, 0, obj)
+  }
   return fields
 }

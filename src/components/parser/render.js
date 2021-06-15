@@ -22,6 +22,9 @@ function vModel(dataObject, defaultValue) {
 
 function mountSlotFiles(h, confClone, children) {
   const childObjs = componentChild[confClone.config.tag]
+  if (confClone.config.tag === 'p') {
+    console.log(11111)
+  }
   if (childObjs) {
     Object.keys(childObjs).forEach(key => {
       const childFunc = childObjs[key]
@@ -111,7 +114,6 @@ export default {
 
     // 将字符串类型的事件，发送为消息
     emitEvents.call(this, confClone)
-
     // 将json表单配置转化为vue render可以识别的 “数据对象（dataObject）”
     buildDataObject.call(this, confClone, dataObject)
     return h(this.conf.config.tag, dataObject, children)

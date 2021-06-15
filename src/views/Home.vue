@@ -63,6 +63,15 @@ export default {
         "print": true
       },{
         "type": "amount",
+        "formKey": "amount_12",
+        "label": "金额（元）",
+        "placeholder": "请输入金额",
+        "required": false,
+        "capital": true,
+        "isCondition": true,
+        "print": true
+      },{
+        "type": "amount",
         "formKey": "amount_11",
         "label": "金额（元）",
         "placeholder": "请输入金额",

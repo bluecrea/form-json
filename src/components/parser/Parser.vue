@@ -1,6 +1,7 @@
 <script>
 import { deepClone } from './deepClone'
 import render from './render'
+import { smallToBig } from "@/components/SmallToBig"
 
 const ruleTrigger = {
   'el-input': 'blur',
@@ -29,17 +30,10 @@ const layouts = {
     )
   },
   colDivItem(h, scheme) {
-    const { formConfCopy } = this
     const config = scheme.config
     const listeners = buildListeners.call(this, scheme)
     let labelWidth = config.labelWidth ? `${config.labelWidth}px` : null
-    return (
-      <el-form-item label-width={labelWidth} prop={scheme.formKey}
-                    label={ config.label || ''}>
-        <el-input value={this.value} on-input={ value => scheme.formModel[scheme.formKey] = value } maxlength="10" show-word-limit/>
-        <p>金额：</p>
-      </el-form-item>
-    )
+    return <render conf={scheme} on={listeners} />
   },
   rowFormItem(h, scheme) {
     let child = renderChildren.apply(this, arguments)
@@ -49,7 +43,7 @@ const layouts = {
       </el-row>
     }
     return (
-        <el-col span='12'>
+        <el-col span={scheme.span}>
           <el-row gutter={scheme.gutter}>
             {child}
           </el-row>
@@ -81,12 +75,10 @@ function renderFrom(h) {
 }
 
 function formBtns(h) {
-  return <el-col>
-    <el-form-item size="large">
-      <el-button type="primary" onClick={this.submitForm}>提交</el-button>
-      <el-button onClick={this.resetForm}>重置</el-button>
-    </el-form-item>
-  </el-col>
+  return <el-form-item size="large">
+    <el-button type="primary" onClick={this.submitForm}>提交</el-button>
+    <el-button onClick={this.resetForm}>重置</el-button>
+  </el-form-item>
 }
 
 function renderFormItem(h, elementList) {
@@ -148,6 +140,9 @@ export default {
     return data
   },
   methods: {
+    onEnlargeText(val) {
+      return val
+    },
     initFormData(componentList, formData) {
       componentList.forEach(cur => {
         const config = cur.config
@@ -184,8 +179,8 @@ export default {
     submitForm() {
       this.$refs[this.formConf.formRef].validate(valid => {
         if (!valid) return false
-        // 触发sumit事件
         this.$emit('submit', this[this.formConf.formModel])
+        console.log(this[this.formConf.formModel])
         return true
       })
     }
