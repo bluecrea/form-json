@@ -1,5 +1,3 @@
-import ca from "element-ui/src/locale/lang/ca";
-
 export const jsonToForm = (json) =>  {
   let fields = []
   json.forEach(item => {

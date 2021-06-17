@@ -102,8 +102,7 @@ export default {
   },
   computed: {},
   watch: {},
-  created() {
-  },
+  created() {},
   mounted() {
     this.formConf.fields = jsonToForm(this.backData)
     // 表单数据回填，模拟异步请求场景
@@ -123,7 +122,7 @@ export default {
       form.fields.forEach(item => {
         const val = data[item.formKey]
         if (val) {
-          item.__config__.defaultValue = val
+          item.config.defaultValue = val
         }
       })
     },

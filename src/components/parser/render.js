@@ -22,9 +22,6 @@ function vModel(dataObject, defaultValue) {
 
 function mountSlotFiles(h, confClone, children) {
   const childObjs = componentChild[confClone.config.tag]
-  if (confClone.config.tag === 'p') {
-    console.log(11111)
-  }
   if (childObjs) {
     Object.keys(childObjs).forEach(key => {
       const childFunc = childObjs[key]
